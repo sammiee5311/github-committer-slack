@@ -1,0 +1,6 @@
+requests
+slackclient
+slackeventsapi
+python-dotenv
+pymongo
+dnspython
