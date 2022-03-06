@@ -7,7 +7,7 @@ from slack import WebClient
 from committer import Committer
 from datetime import datetime, timedelta
 from config.env import load_env
-from typing import Dict, List, Any
+from typing import Dict, List
 
 load_env()
 
@@ -20,7 +20,7 @@ START_TEXT = {
     "type": "section",
     "text": {"type": "mrkdwn", "text": "[%s] \n\n *총 %d 명 중 %s 명* \n\n 어제 커밋 한 분들입니다."},
 }
-COMMITERS = {
+COMMITTERS = {
     "type": "section",
     "text": {
         "type": "mrkdwn",
@@ -52,16 +52,16 @@ def create_block_message(committers: List[Committer]) -> Blocks:
         if committer.yesterday_commit > 0:
             total += 1
 
-        commit_block = copy.deepcopy(COMMITERS)
+        commits_block = copy.deepcopy(COMMITTERS)
 
         if committer.yesterday_commit == 0:
-            commit_block['text']['text'] = commit_block['text']['text'] % (
+            commits_block['text']['text'] = commits_block['text']['text'] % (
                 '', committer.slack_name, '')
-            no_commits_blocks.append(commit_block)
+            no_commits_blocks.append(commits_block)
         else:
-            commit_block['text']['text'] = commit_block['text']['text'] % (
+            commits_block['text']['text'] = commits_block['text']['text'] % (
                 '🎉', committer.slack_name, f'(연속 {committer.continuous_days + 1} 일 !)')
-            commits_blocks.append(commit_block)
+            commits_blocks.append(commits_block)
 
     start_block = copy.deepcopy(START_TEXT)
     start_block['text']['text'] = start_block['text']['text'] % (

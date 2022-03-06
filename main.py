@@ -1,10 +1,7 @@
-from collections import defaultdict
 from config.database import MongoDB
 from typing import List
 from committer import Committer
 from utils.helper import get_yesterday_commit, post_daily_commits, create_block_message
-
-day_commits = defaultdict(int)
 
 
 def main():
